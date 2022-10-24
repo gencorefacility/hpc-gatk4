@@ -14,8 +14,8 @@ params.snpeff_data = "${params.outdir}/snpeff_data"
 // Define modules here
 BWA = 'bwa/intel/0.7.17'
 PICARD = 'picard/2.17.11'
-GATK = 'gatk/4.1.9.0'
-R = 'r/intel/4.0.3'
+GATK = 'gatk/4.2.4.1'
+R = 'r/gcc/4.2.0'
 SAMTOOLS = 'samtools/intel/1.11'
 SNPEFF = 'snpeff/4.3t'
 DEEPTOOLS = 'deeptools/3.5.0'
@@ -233,12 +233,12 @@ process getMetrics{
     module load $PICARD
     module load $R
     module load $SAMTOOLS
-    java -jar \$PICARD_JAR \
+    java -Djava.io.tmpdir=\$TMPDIR -jar \$PICARD_JAR \
         CollectAlignmentSummaryMetrics \
 	R=${params.ref} \
         I=${sorted_dedup_reads} \
 	O=${pair_id}_alignment_metrics.txt
-    java -jar \$PICARD_JAR \
+    java -Djava.io.tmpdir=\$TMPDIR -jar \$PICARD_JAR \
         CollectInsertSizeMetrics \
         INPUT=${sorted_dedup_reads} \
 	OUTPUT=${pair_id}_insert_metrics.txt \
@@ -470,6 +470,7 @@ process analyzeCovariates{
     module load $R
     module load $GATK
     gatk AnalyzeCovariates \
+	--tmp-dir \$TMPDIR \
 	-before $recal_table \
 	-after $post_recal_table \
 	-plots ${pair_id}_recalibration_plots.pdf
