@@ -1,5 +1,5 @@
 /* GATK4 Variant Calling Pipeline 
- * Usage: nextflow run /path/to/main.nf -with-docker
+ * Usage: nextflow run /path/to/main.nf -with-singularity
  *
  * Author: Mohammed Khalfan < mkhalfan@nyu.edu >
  * NYU Center for Genetics and System Biology 2020
