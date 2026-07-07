@@ -197,7 +197,6 @@ process qualimap{
 
 process getMetrics{
     publishDir "${params.out}/metrics", mode:'copy'
-    // GATK official image conveniently includes Picard, Samtools, and R.
     container 'broadinstitute/gatk:4.2.4.1'
 
     input:
