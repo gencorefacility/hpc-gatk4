@@ -100,7 +100,7 @@ process align {
 
 process markDuplicatesSpark {
     publishDir "${params.out}/dedup_sorted", mode:'copy'
-    container 'quay.io/biocontainers/gatk4:4.2.4.1--hdfd78af_0'
+    container 'broadinstitute/gatk:4.2.4.1'
 
     input:
     set val(pair_id), file(aligned_reads) from aligned_reads_ch
@@ -234,7 +234,7 @@ process getMetrics{
 
 recalibrated_bam_ch = Channel.create()
 process haplotypeCaller {
-    container 'quay.io/biocontainers/gatk4:4.2.4.1--hdfd78af_0'
+    container 'broadinstitute/gatk:4.2.4.1'
     
     input:
     set val(pair_id),
@@ -263,7 +263,7 @@ process haplotypeCaller {
 }
 
 process selectVariants {
-    container 'quay.io/biocontainers/gatk4:4.2.4.1--hdfd78af_0'
+    container 'broadinstitute/gatk:4.2.4.1'
 
     input:
     set val(pair_id), \
@@ -299,7 +299,7 @@ process selectVariants {
 
 process filterSnps {
     publishDir "${params.out}/filtered_snps", mode:'copy'
-    container 'quay.io/biocontainers/gatk4:4.2.4.1--hdfd78af_0'
+    container 'broadinstitute/gatk:4.2.4.1'
     
     input:
     set val(pair_id),
@@ -330,7 +330,7 @@ process filterSnps {
 
 process filterIndels {
     publishDir "${params.out}/filtered_indels", mode:'copy'
-    container 'quay.io/biocontainers/gatk4:4.2.4.1--hdfd78af_0'
+    container 'broadinstitute/gatk:4.2.4.1'
     
     input:
     set val(pair_id), \
@@ -365,7 +365,7 @@ filtered_indels_ch_1.filter({it[1] == 1}).tap{filtered_indels_for_recal}
 
 process bqsr{
     publishDir "${params.out}/bqsr", mode:'copy'
-    container 'quay.io/biocontainers/gatk4:4.2.4.1--hdfd78af_0'
+    container 'broadinstitute/gatk:4.2.4.1'
 
     input:
     set val(pair_id),
@@ -429,7 +429,7 @@ process bqsr{
 
 process analyzeCovariates{
     publishDir "${params.out}/bqsr", mode:'copy'
-    container 'quay.io/biocontainers/gatk4:4.2.4.1--hdfd78af_0'
+    container 'broadinstitute/gatk:4.2.4.1'
 
     input:
     set val(pair_id), file(recal_table), file(post_recal_table) \
