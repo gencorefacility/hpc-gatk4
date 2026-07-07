@@ -479,7 +479,7 @@ process make_bw{
 
 process snpEff {
     publishDir "${params.out}/snpeff", mode:'copy'    
-    container 'quay.io/biocontainers/snpeff:4.3.1t--hdfd78af_0'
+    container 'quay.io/biocontainers/snpeff:4.3.1k--0'
 
     input:
     set val(pair_id), \
